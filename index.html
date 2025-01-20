@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +12,19 @@
             padding: 20px;
             font-family: Arial, sans-serif;
         }
-     .input-container {
+
+    .input-container {
             margin-bottom: 20px;
         }
-     .result-container {
+
+    .result-container {
             margin-top: 20px;
             border: 1px solid #ccc;
             padding: 10px;
             display: none;
         }
-     .loading-overlay {
+
+    .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -30,9 +34,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z - index: 9999;
         }
-     .mdui-spinner {
+
+    .mdui-spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #3498db;
             border-radius: 50%;
@@ -40,49 +45,56 @@
             height: 40px;
             animation: spin 2s linear infinite;
         }
+
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
+
         /* 黑暗模式样式 */
-        body.dark-mode {
+        body.dark - mode {
             background-color: #333;
             color: #fff;
         }
-        body.dark-mode.input-container {
+
+        body.dark - mode.input - container {
             border-color: #666;
         }
-        body.dark-mode.result-container {
+
+        body.dark - mode.result - container {
             border-color: #666;
         }
-        body.dark-mode.loading-overlay {
+
+        body.dark - mode.loading - overlay {
             background-color: rgba(0, 0, 0, 0.8);
         }
     </style>
 </head>
-<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
-    <div class="mdui-container">
-        <h1 class="mdui-typo-display-2">HiMCGo</h1>
-        <div class="input-container mdui-textfield mdui-textfield-floating-label">
-            <label class="mdui-textfield-label">Minecraft 用户名</label>
-            <input type="text" id="username" class="mdui-textfield-input" placeholder="输入用户名">
+
+<body class="mdui - theme - primary - indigo mdui - theme - accent - pink">
+    <div class="mdui - container">
+        <h1 class="mdui - typo - display - 2">HiMCGo</h1>
+        <div class="input - container mdui - textfield mdui - textfield - floating - label">
+            <label class="mdui - textfield - label">Minecraft 用户名</label>
+            <input type="text" id="username" class="mdui - textfield - input" placeholder="输入用户名">
         </div>
-        <button class="mdui-btn mdui-btn-raised mdui-color-theme" onclick="fetchData()">获取信息</button>
+        <button class="mdui - btn mdui - btn - raised mdui - color - theme" onclick="fetchData()">获取信息</button>
         <!-- 切换黑暗模式的按钮 -->
-        <button class="mdui-btn mdui-btn-raised mdui-color-theme" id="darkModeToggle" onclick="toggleDarkMode()">切换黑暗模式</button>
+        <button class="mdui - btn mdui - btn - raised mdui - color - theme" id="darkModeToggle" onclick="toggleDarkMode()">切换黑暗模式</button>
     </div>
-    <div class="result-container mdui-typo">
+    <div class="result - container mdui - typo">
         <h2>结果</h2>
         <p id="skinUrl"></p>
         <p id="uuid"></p>
     </div>
     <!-- 加载动画容器 -->
-    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
-        <div class="mdui-spinner"></div>
+    <div class="loading - overlay" id="loadingOverlay" style="display: none;">
+        <div class="mdui - spinner"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/js/mdui.min.js"></script>
     <script>
@@ -90,60 +102,64 @@
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
         }
+
         // 隐藏加载动画
         function hideLoading() {
             document.getElementById('loadingOverlay').style.display = 'none';
         }
+
         function fetchData() {
             const username = document.getElementById('username').value;
             if (username) {
-                showLoading(); // 显示加载动画
+                showLoading();
                 const apiUrl = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                 fetch(apiUrl)
-                .then(response => {
+                  .then(response => {
                         if (!response.ok) {
-                            throw new Error('网络请求失败，状态码:'+ response.status);
+                            // 尝试备用API逻辑（这里只是示例，实际可能需要更复杂处理）
+                            return Promise.reject(new Error('主API请求失败，状态码:'+ response.status));
                         }
                         return response.json();
                     })
-                .then(data => {
+                  .then(data => {
                         if (data) {
                             const uuid = data.id;
                             const skinUrl = `https://crafatar.com/skins/${uuid}`;
                             document.getElementById('uuid').innerText = `UUID: ${uuid}`;
                             document.getElementById('skinUrl').innerText = `皮肤 URL: ${skinUrl}`;
-                            document.querySelector('.result-container').style.display = 'block';
+                            document.querySelector('.result - container').style.display = 'block';
                         } else {
-                            // 更友好的错误提示，使用 mdui 的提示框组件（假设已引入相关依赖）
                             mdui.alert('未找到该用户信息');
                         }
-                        hideLoading(); // 隐藏加载动画
+                        hideLoading();
                     })
-                .catch(error => {
+                  .catch(error => {
                         console.error('获取数据时出错:', error);
-                        // 更友好的错误提示，使用 mdui 的提示框组件（假设已引入相关依赖）
+                        // 这里可以添加备用API请求逻辑
                         mdui.alert('获取数据时出错，请稍后重试');
-                        hideLoading(); // 隐藏加载动画
+                        hideLoading();
                     });
             } else {
-                // 更友好的错误提示，使用 mdui 的提示框组件（假设已引入相关依赖）
                 mdui.alert('请输入用户名');
             }
         }
+
         // 切换黑暗模式的函数
         function toggleDarkMode() {
             const body = document.body;
-            body.classList.toggle('dark-mode');
-            const isDarkMode = body.classList.contains('dark-mode');
+            body.classList.toggle('dark - mode');
+            const isDarkMode = body.classList.contains('dark - mode');
             localStorage.setItem('darkMode', isDarkMode);
         }
+
         // 页面加载时检查用户是否开启了黑暗模式
-        window.onload = function() {
+        window.onload = function () {
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
-                document.body.classList.add('dark-mode');
+                document.body.classList.add('dark - mode');
             }
         }
     </script>
 </body>
+
 </html>
