@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HiMCGo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/css/mdui.min.css">
     <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.2/dist/js/mdui.min.js"></script>
+    <style>
+        #skin - img {
+            width: 64px;
+            height: 64px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
+
 <body>
-    <!-- 在这里添加网页的主要内容 -->
-    <div class="mdui-container">
-        <h1 class="mdui-typo-display-4">欢迎来到我的 mdui 网页</h1>
-        <p class="mdui-typo-body-1">这是一个使用 mdui 框架设计的简单网页示例。</p>
-        <button class="mdui-btn mdui-btn-raised mdui-ripple">点击我</button>
-    </div>
+    <input type="text" id="mc - username" placeholder="输入Minecraft用户名">
+    <button onclick="getSkin()">获取皮肤</button>
+    <img id="skin - img" alt="玩家皮肤">
+
     <script>
-        // 可以在这里添加一些自定义的 JavaScript 代码
-        document.addEventListener('DOMContentLoaded', function() {
-            var button = document.querySelector('.mdui-btn');
-            button.addEventListener('click', function() {
-                alert('你点击了按钮');
-            });
-        });
+        async function getUUID(username) {
+            const response = await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
+            const data = await response.json();
+            return data.id;
+        }
+
+        async function getSkin(uuid) {
+            const proxyUrl = 'YOUR_PROXY_SERVER_URL';// 替换为你的代理服务器URL
+            const encodedUuid = uuid.replace(/-/g, '');
+            const response = await fetch(`${proxyUrl}https://sessionserver.mojang.com/session/minecraft/profile/${encodedUuid}`);
+            const data = await response.json();
+            const textureUrl = data.properties[0].value;
+            const decoded = atob(textureUrl);
+            const json = JSON.parse(decoded);
+            const skinUrl = json.textures.SKIN.url;
+            document.getElementById('skin - img').src = skinUrl;
+        }
+
+        async function getSkin() {
+            const username = document.getElementById('mc - username').value;
+            if (username) {
+                const uuid = await getUUID(username);
+                await getSkin(uuid);
+            }
+        }
     </script>
 </body>
+
 </html>
