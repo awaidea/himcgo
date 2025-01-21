@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/css/mdui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/js/mdui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- 引入 marked.js 库 -->
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-typo">
+    <div class="mdui-container">
+        <h1 class="mdui-text-center mdui-m-t-2">留言板</h1>
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">姓名</label>
+            <input class="mdui-textfield-input" type="text" id="nameInput" />
+        </div>
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">留言内容</label>
+            <textarea class="mdui-textfield-input" id="messageInput"></textarea>
+        </div>
+        <button class="mdui-btn mdui-btn-raised mdui-color-theme mdui-m-t-2" id="submitButton">提交留言</button>
+        <div id="messageBoard" class="mdui-m-t-4">
+            <!-- 这里将显示留言 -->
+        </div>
+    </div>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value;
+            const message = document.getElementById('messageInput').value;
+            if (name && message) {
+                const githubToken = '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'; // 替换为你的个人访问令牌
+                const repoOwner = 'awaidea'; // 替换为你的仓库所有者
+                const repoName = 'himcgo'; // 替换为你的仓库名称
+
+                const discussionData = {
+                    title: `留言 - ${name}`,
+                    body: message,
+                    category: 'YOUR_DISCUSSION_CATEGORY_ID' // 替换为你在GitHub讨论中创建的分类ID
+                };
+
+                fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/discussions`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${githubToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(discussionData)
+                })
+              .then(response => response.json())
+              .then(data => {
+                    mdui.snackbar({
+                        message: '留言提交成功',
+                        position: 'top'
+                    });
+                    document.getElementById('nameInput').value = '';
+                    document.getElementById('messageInput').value = '';
+                })
+              .catch(error => {
+                    mdui.snackbar({
+                        message: '留言提交失败',
+                        position: 'top'
+                    });
+                    console.error('Error:', error);
+                });
+            } else {
+                mdui.snackbar({
+                    message: '请输入姓名和留言内容',
+                    position: 'top'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
