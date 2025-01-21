@@ -1,83 +1,100 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh - CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>官方网站|HiMCGo NetWork</title>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device - width, initial - scale = 1.0">
+    <title>HiMCGo MC服务器官网</title>
     <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+    <style>
+        /* 将导航栏背景颜色设置为深绿色 */
+       .mdui - appbar {
+            background - color: #006400;
+        }
+
+        /* 将导航栏文本颜色设置为白色，以提高可读性 */
+       .mdui - appbar.mdui - typo - title,
+       .mdui - appbar.mdui - btn - icon i {
+            color: white;
+        }
+    </style>
     <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 </head>
 
 <body>
     <!-- 导航栏 -->
-    <header class="mdui-appbar mdui-appbar-fixed">
-        <div class="mdui-toolbar">
-            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple mdui-visible-xs-block" mdui-drawer="{target: '#left-drawer'}">
-                <i class="mdui-icon material-icons">menu</i>
+    <header class="mdui - appbar mdui - appbar - fixed">
+        <div class="mdui - toolbar">
+            <a href="#" class="mdui - btn mdui - btn - icon mdui - ripple mdui - visible - xs - block" mdui - drawer="{target: '#left - drawer'}">
+                <i class="mdui - icon material - icons">menu</i>
             </a>
-            <span class="mdui-typo-title">HiMCGo</span>
-            <div class="mdui-toolbar-spacer"></div>
-            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple">
-                <i class="mdui-icon material-icons">search</i>
+            <span class="mdui - typo - title">HiMCGo</span>
+            <div class="mdui - toolbar - spacer"></div>
+            <a href="#" class="mdui - btn mdui - btn - icon mdui - ripple">
+                <i class="mdui - icon material - icons">search</i>
             </a>
         </div>
     </header>
 
     <!-- 左侧抽屉 -->
-    <div class="mdui-drawer" id="left-drawer">
-        <div class="mdui-list">
-            <a href="https://himcgo.app.tc" class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-                <div class="mdui-list-item-content">首页</div>
+    <div class="mdui - drawer" id="left - drawer">
+        <div class="mdui - list">
+            <a href="#" class="mdui - list - item mdui - ripple">
+                <i class="mdui - list - item - icon mdui - icon material - icons">home</i>
+                <div class="mdui - list - item - content">首页</div>
             </a>
-            <a href="https://himcgo.flarum.cloud" class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">group</i>
-                <div class="mdui-list-item-content">社区</div>
+            <a href="#" class="mdui - list - item mdui - ripple">
+                <i class="mdui - list - item - icon mdui - icon material - icons">info</i>
+                <div class="mdui - list - item - content">服务器介绍</div>
             </a>
-            <a href="#" class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">help</i>
-                <div class="mdui-list-item-content">帮助</div>
+            <a href="#" class="mdui - list - item mdui - ripple">
+                <i class="mdui - list - item - icon mdui - icon material - icons">group</i>
+                <div class="mdui - list - item - content">社区</div>
+            </a>
+            <a href="#" class="mdui - list - item mdui - ripple">
+                <i class="mdui - list - item - icon mdui - icon material - icons">help</i>
+                <div class="mdui - list - item - content">帮助</div>
             </a>
         </div>
     </div>
 
-   
+    <!-- 主内容区域 -->
+    <main class="mdui - container - fluid">
+
         <!-- 服务器介绍 -->
-        <section class="mdui-typo">
-            <h2>.         </h2>
+        <section class="mdui - typo">
             <h2>关于HiMCGo服务器</h2>
             <p>HiMCGo是一个充满活力与创意的Minecraft服务器，我们致力于为玩家提供一个安全、有趣且富有挑战的游戏环境。无论你是建筑大师，还是红石科技爱好者，亦或是热衷于冒险探索，HiMCGo都有适合你的游戏模式和玩法。</p>
         </section>
 
         <!-- 服务器特色 -->
-        <section class="mdui-typo">
+        <section class="mdui - typo">
             <h2>服务器特色</h2>
-            <ul class="mdui-list">
-                <li class="mdui-list-item">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">star</i>
-                    <div class="mdui-list-item-content">多种特色游戏模式</div>
+            <ul class="mdui - list">
+                <li class="mdui - list - item">
+                    <i class="mdui - list - item - icon mdui - icon material - icons">star</i>
+                    <div class="mdui - list - item - content">多种特色游戏模式</div>
                 </li>
-                <li class="mdui-list-item">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">security</i>
-                    <div class="mdui-list-item-content">严格的反作弊系统</div>
+                <li class="mdui - list - item">
+                    <i class="mdui - list - item - icon mdui - icon material - icons">security</i>
+                    <div class="mdui - list - item - content">严格的反作弊系统</div>
                 </li>
-                <li class="mdui-list-item">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
-                    <div class="mdui-list-item-content">活跃友好的社区</div>
+                <li class="mdui - list - item">
+                    <i class="mdui - list - item - icon mdui - icon material - icons">people</i>
+                    <div class="mdui - list - item - content">活跃友好的社区</div>
                 </li>
             </ul>
         </section>
 
         <!-- 加入我们 -->
-        <section class="mdui-typo">
+        <section class="mdui - typo">
             <h2>如何加入</h2>
             <p>要加入HiMCGo服务器，只需在Minecraft游戏中，点击“多人游戏”，然后点击“添加服务器”，在服务器地址栏中输入：<strong>your_server_ip</strong>，即可轻松加入我们的世界，开启你的冒险之旅！</p>
         </section>
     </main>
 
     <!-- 页脚 -->
-    <footer class="mdui-typo mdui-text-center">
+    <footer class="mdui - typo mdui - text - center">
         <p>&copy; 2024 HiMCGo服务器版权所有</p>
     </footer>
 </body>
