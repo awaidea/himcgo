@@ -1,94 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HiMCGo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/css/mdui.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/1.0.2/js/mdui.min.js"></script>
+    <title>官方网站|HiMCGo NetWork</title>
+    <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+    <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 </head>
-<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
-    <div class="mdui-container mdui-typo">
-        <div class="mdui-row">
-            <div class="mdui-col-md-12 mdui-text-center">
-                <h1 class="mdui-typo-display-2">HiMCGo</h1>
-            </div>
+
+<body>
+    <!-- 导航栏 -->
+    <header class="mdui-appbar mdui-appbar-fixed">
+        <div class="mdui-toolbar">
+            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple mdui-visible-xs-block" mdui-drawer="{target: '#left-drawer'}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <span class="mdui-typo-title">HiMCGo</span>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple">
+                <i class="mdui-icon material-icons">search</i>
+            </a>
         </div>
-        <div class="mdui-row">
-            <div class="mdui-col-md-6 offset-md-3">
-                <div class="mdui-textfield mdui-textfield-floating-label">
-                    <label class="mdui-textfield-label">Minecraft 用户名</label>
-                    <input type="text" id="username" class="mdui-textfield-input" placeholder="输入用户名">
-                </div>
-            </div>
-        </div>
-        <div class="mdui-row">
-            <div class="mdui-col-md-6 offset-md-3 mdui-text-center">
-                <button class="mdui-btn mdui-btn-raised mdui-color-theme" onclick="fetchData()">获取信息</button>
-            </div>
-        </div>
-        <div class="mdui-row">
-            <div class="mdui-col-md-6 offset-md-3">
-                <div class="mdui-card mdui-m-y-2 result-container" style="display: none;">
-                    <div class="mdui-card-content">
-                        <h2>结果</h2>
-                        <p id="skinUrl"></p>
-                        <p id="uuid"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mdui-dialog" id="loadingDialog">
-        <div class="mdui-dialog-title">加载中...</div>
-        <div class="mdui-dialog-content">
-            <div class="mdui-spinner mdui-spinner-color-primary"></div>
+    </header>
+
+    <!-- 左侧抽屉 -->
+    <div class="mdui-drawer" id="left-drawer">
+        <div class="mdui-list">
+            <a href="https://himcgo.app.tc" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a href="#" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">group</i>
+                <div class="mdui-list-item-content">社区</div>
+            </a>
+            <a href="#" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">help</i>
+                <div class="mdui-list-item-content">帮助</div>
+            </a>
         </div>
     </div>
-    <script>
-        // 显示加载对话框
-        function showLoading() {
-            const dialog = new mdui.Dialog('#loadingDialog');
-            dialog.open();
-        }
-        // 隐藏加载对话框
-        function hideLoading() {
-            const dialog = new mdui.Dialog('#loadingDialog');
-            dialog.close();
-        }
-        function fetchData() {
-            const username = document.getElementById('username').value;
-            if (username) {
-                showLoading();
-                const apiUrl = `https://api.mojang.com/users/profiles/minecraft/${username}`;
-                fetch(apiUrl)
-               .then(response => {
-                        if (!response.ok) {
-                            throw new Error('网络请求失败，状态码:'+ response.status);
-                        }
-                        return response.json();
-                    })
-               .then(data => {
-                        if (data) {
-                            const uuid = data.id;
-                            const skinUrl = `https://crafatar.com/skins/${uuid}`;
-                            document.getElementById('uuid').innerText = `UUID: ${uuid}`;
-                            document.getElementById('skinUrl').innerText = `皮肤 URL: ${skinUrl}`;
-                            document.querySelector('.result-container').style.display = 'block';
-                        } else {
-                            mdui.alert('未找到该用户信息');
-                        }
-                        hideLoading();
-                    })
-               .catch(error => {
-                        console.error('获取数据时出错:', error);
-                        mdui.alert('获取数据时出错，请稍后重试');
-                        hideLoading();
-                    });
-            } else {
-                mdui.alert('请输入用户名');
-            }
-        }
-    </script>
+
+   
+        <!-- 服务器介绍 -->
+        <section class="mdui-typo">
+            <h2>关于HiMCGo服务器</h2>
+            <p>HiMCGo是一个充满活力与创意的Minecraft服务器，我们致力于为玩家提供一个安全、有趣且富有挑战的游戏环境。无论你是建筑大师，还是红石科技爱好者，亦或是热衷于冒险探索，HiMCGo都有适合你的游戏模式和玩法。</p>
+        </section>
+
+        <!-- 服务器特色 -->
+        <section class="mdui-typo">
+            <h2>服务器特色</h2>
+            <ul class="mdui-list">
+                <li class="mdui-list-item">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">star</i>
+                    <div class="mdui-list-item-content">多种特色游戏模式</div>
+                </li>
+                <li class="mdui-list-item">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">security</i>
+                    <div class="mdui-list-item-content">严格的反作弊系统</div>
+                </li>
+                <li class="mdui-list-item">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
+                    <div class="mdui-list-item-content">活跃友好的社区</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 加入我们 -->
+        <section class="mdui-typo">
+            <h2>如何加入</h2>
+            <p>要加入HiMCGo服务器，只需在Minecraft游戏中，点击“多人游戏”，然后点击“添加服务器”，在服务器地址栏中输入：<strong>your_server_ip</strong>，即可轻松加入我们的世界，开启你的冒险之旅！</p>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="mdui-typo mdui-text-center">
+        <p>&copy; 2024 HiMCGo服务器版权所有</p>
+    </footer>
 </body>
+
 </html>
